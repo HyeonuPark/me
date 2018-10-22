@@ -39,6 +39,6 @@ Ringbuf 구현의 핵심 아이디어이자 가장 재미있는 부분은 Sender
 
 실제 구현에서는 Sender와 Receiver의 역할을 Role trait로 분리하고(Sender는 버퍼에 쓰고 Receiver는 버퍼에서 읽어옵니다), 버퍼의 슬롯을 점유/해제 하는 역할은 Sequence trait에게 맡겼습니다. 그리고 이 둘을 사용하여 Half 자료형이 try_advance 메서드를 구현하고, Sender와 Receiver는 사용자 API를 번역해 주는 역할만 맡습니다. 그리고 이 모든 과정에서 함수포인터 등 동적 디스패치는 전혀 사용되지 않았으므로 컴파일러 최적화를 거친 코드는 추상화 없이 손으로 한땀 한땀 짜낸 코드와 이론상 같은 속도를 낼 수 있습니다. 그러니까, Zero-cost Abstraction 이죠.
 
-현재 Sequence trait의 구현체는 Owned 와 Competitive 의 두 가지로, 후자는 여러 작업간 공유가 가능합니다. 이 둘을 조합하면 같은 코드로 spsc/spmc/mpsc/mpmc 를 모두 얻을 수 있습니다. 특히 Owned 는 반복문을 사용하지 않고 구현되었으므로, spsc 의 경우 wait-free 형태로 사용이 가능합니다. 추후 보낸 메시지를 모든 Receiver가 복사해서 나누어갖는 Broadcast Sequence 를 구현할 예정이며, 이 경우 추가적인 작업 없이도 spbc/mpbc 를 바로 얻을 수 있습니다.
+현재 Sequence trait의 구현체는 Owned 와 Shared 의 두 가지로, 후자는 여러 작업간 공유가 가능합니다. 이 둘을 조합하면 같은 코드로 spsc/spmc/mpsc/mpmc 를 모두 얻을 수 있습니다. 특히 Owned 는 반복문을 사용하지 않고 구현되었으므로, spsc 의 경우 wait-free 형태로 사용이 가능합니다. 추후 보낸 메시지를 모든 Receiver가 복사해서 나누어갖는 Broadcast Sequence 를 구현할 예정이며, 이 경우 추가적인 작업 없이도 spbc/mpbc 를 바로 얻을 수 있습니다.
 
-현재 Ringbuf는 핵심이 되는 채널 구현은 거의 완성된 상태이며 최근에는 동기화 메커니즘들을 실험하고 있습니다. Thread-blocking mode와 futures 를 모두 지원할 예정으로 std::sync::mpsc 및 futures::channel 보다 빠른 속도가 목표입니다.
+현재 Ringbuf는 핵심이 되는 채널 구현은 사실상 완성된 상태이며, 최근에는 동기화 메커니즘들을 실험하고 있습니다. Thread-blocking mode와 futures 를 모두 지원할 예정으로 std::sync::mpsc 및 futures::channel 보다 빠른 속도가 목표입니다.
