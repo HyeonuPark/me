@@ -3,6 +3,7 @@
 - 이름: 박현우
 - 깃헙: https://github.com/HyeonuPark
 - 블로그: https://medium.com/@nemo1275
+- 자기소개서: https://github.com/HyeonuPark/me/blob/master/RESUME.md
 
 #### 프로젝트 소개
 
