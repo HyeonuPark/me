@@ -1,0 +1,15 @@
+{
+    "workbench.sideBar.location": "right",
+    "workbench.activityBar.visible": false,
+    "files.autoSave": "onFocusChange",
+    "workbench.colorCustomizations": {
+        "editorCursor.foreground": "#ff0000",
+        "editor.selectionHighlightBackground": "#9a6300",
+        "editor.selectionBackground": "#849a00",
+        "statusBarItem.remoteBackground": "#003568",
+        "statusBar.background": "#000068",
+        "statusBarItem.hoverBackground": "#350068"
+    },
+    "files.trimTrailingWhitespace": true,
+    "editor.cursorWidth": 3
+}
